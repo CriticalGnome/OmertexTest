@@ -1,10 +1,9 @@
 package com.omertex.omertextest.data.repository
 
 import com.omertex.omertextest.data.model.entity.Picture
-import com.omertex.omertextest.data.model.mapper.PostDataMapper
 import com.omertex.omertextest.data.model.entity.Post
 import com.omertex.omertextest.data.model.mapper.PictureDataMapper
-import com.omertex.omertextest.data.model.responce.PictureResponse
+import com.omertex.omertextest.data.model.mapper.PostDataMapper
 import com.omertex.omertextest.data.service.JsonPlaceholderService
 import com.omertex.omertextest.data.service.LoremPicsumService
 import io.reactivex.Observable
