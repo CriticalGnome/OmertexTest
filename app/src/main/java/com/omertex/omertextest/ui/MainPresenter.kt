@@ -2,17 +2,22 @@ package com.omertex.omertextest.ui
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.omertex.omertextest.data.model.entity.MainItemVO
 import com.omertex.omertextest.data.repository.DataRepository
-import com.omertex.omertextest.data.repository.DataRepositoryImpl
+import com.omertex.omertextest.di.AppInjector
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
+import javax.inject.Inject
 
 @InjectViewState
 class MainPresenter : MvpPresenter<MainView>() {
 
-    private val dataRepository: DataRepository = DataRepositoryImpl()
+    init {
+        AppInjector.appComponent.inject(this)
+    }
+
+    @Inject
+    lateinit var dataRepository: DataRepository
 
     fun onTextRequested() {
         dataRepository.getPosts()

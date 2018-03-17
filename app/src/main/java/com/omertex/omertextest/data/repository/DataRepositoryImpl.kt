@@ -10,6 +10,7 @@ import com.omertex.omertextest.data.service.LoremPicsumService
 import io.reactivex.Observable
 
 class DataRepositoryImpl : DataRepository {
+
     private val jsonPlaceholderService by lazy {
         JsonPlaceholderService.create()
     }
@@ -23,14 +24,20 @@ class DataRepositoryImpl : DataRepository {
 
     override fun getPosts(): Observable<List<Post>> {
         return jsonPlaceholderService.getPosts()
+                .flatMapIterable { it -> it }
                 .take(50)
-                .map { postDataMapper.mapList(it) }
+                .map { postDataMapper.map(it) }
+                .toList()
+                .toObservable()
     }
 
     override fun getPics(): Observable<List<Picture>> {
         return loremPicsumService.getPics()
+                .flatMapIterable { it -> it }
                 .take(50)
-                .map { pictureDataMapper.mapList(it) }
+                .map { pictureDataMapper.map(it) }
+                .toList()
+                .toObservable()
     }
 
 }
