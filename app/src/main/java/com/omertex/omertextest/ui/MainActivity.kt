@@ -1,6 +1,7 @@
 package com.omertex.omertextest.ui
 
 import android.os.Bundle
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ProgressBar
@@ -51,6 +52,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         presenter.onPicturesRequested()
 
         recycler.adapter = adapter
+        adapter.items = ArrayList()
     }
 
     override fun addTextData(textData: List<Post>) {
@@ -66,8 +68,9 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         for (i: Int in 0 until AppConstants.ITEMS_COUNT.toInt()) {
             items.add(MainItemVO(textData[i], imagesData[i]))
         }
+        val diffResult = DiffUtil.calculateDiff(MainItemDiffUtilCallback(adapter.items, items), true)
         adapter.items = items
-        adapter.notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(adapter)
     }
 
     override fun progressBarVisibility(isVisible: Boolean) {
