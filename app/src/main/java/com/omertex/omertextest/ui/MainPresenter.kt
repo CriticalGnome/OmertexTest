@@ -23,6 +23,8 @@ class MainPresenter : MvpPresenter<MainView>() {
         dataRepository.getPosts()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { viewState.progressBarVisibility(true) }
+                .doOnTerminate { viewState.progressBarVisibility(false) }
                 .subscribe(
                         {
                             it -> viewState.addTextData(it)
@@ -36,6 +38,8 @@ class MainPresenter : MvpPresenter<MainView>() {
         dataRepository.getPics()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { viewState.progressBarVisibility(true) }
+                .doOnTerminate { viewState.progressBarVisibility(false) }
                 .subscribe(
                         {
                             it -> viewState.addImagesData(it)

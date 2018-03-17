@@ -1,6 +1,6 @@
 package com.omertex.omertextest.data.model.entity
 
-class Picture(
+data class Picture(
         val format: String,
         val width: Int,
         val height: Int,

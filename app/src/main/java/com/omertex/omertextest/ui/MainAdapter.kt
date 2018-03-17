@@ -31,7 +31,7 @@ class MainAdapter(var items: List<MainItemVO>, var callback: Callback) : Recycle
         }
 
         fun bind(item: MainItemVO) {
-            itemId.text = item.id
+            itemId.text = item.id.toString()
             itemTitle.text = item.title
             itemUrl.text = item.url
             itemView.setOnClickListener {

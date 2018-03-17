@@ -2,6 +2,8 @@ package com.omertex.omertextest.ui
 
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -14,9 +16,11 @@ import com.omertex.omertextest.R
 import com.omertex.omertextest.data.model.entity.MainItemVO
 import com.omertex.omertextest.data.model.entity.Picture
 import com.omertex.omertextest.data.model.entity.Post
+import com.omertex.omertextest.util.AppConstants
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
+    @BindView(R.id.progressBar)     lateinit var progressBar: ProgressBar
     @BindView(R.id.mainRecycler)    lateinit var recycler: RecyclerView
 
     @InjectPresenter(type = PresenterType.GLOBAL)
@@ -59,15 +63,14 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     override fun updateView() {
         if (textData.isEmpty() || imagesData.isEmpty()) return
-        for (i in 0..49) {
-            items.add(MainItemVO(
-                    textData[i].id.toString(),
-                    textData[i].title,
-                    imagesData[i].post_url
-            ))
+        for (i: Int in 0 until AppConstants.ITEMS_COUNT.toInt()) {
+            items.add(MainItemVO(textData[i], imagesData[i]))
         }
         adapter.items = items
         adapter.notifyDataSetChanged()
     }
 
+    override fun progressBarVisibility(isVisible: Boolean) {
+        progressBar.visibility = if (isVisible) View.VISIBLE else View.GONE
+    }
 }

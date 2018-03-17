@@ -9,7 +9,7 @@ class AppInjector : Application() {
         appComponent = DaggerAppComponent
                 .builder()
                 .appModule(AppModule(applicationContext))
-                .build();
+                .build()
     }
 
     companion object {

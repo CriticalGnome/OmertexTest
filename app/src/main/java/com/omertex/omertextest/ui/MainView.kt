@@ -12,5 +12,6 @@ interface MainView : MvpView {
     fun addTextData(textData: List<Post>)
     fun addImagesData(imagesData: List<Picture>)
     fun updateView()
+    fun progressBarVisibility(isVisible: Boolean)
 
 }
