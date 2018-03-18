@@ -51,17 +51,21 @@ class DataRepositoryImpl : DataRepository {
                 .flatMapIterable { it.photos.photo }
                 .take(AppConstants.ITEMS_COUNT)
                 .map { photoDataMapper.map(it) }
-                .map {
-                    it.sizes = flickrApi.getSizes(
+                .toList()
+                .toObservable()
+    }
+
+    override fun getSizes(id: String): Observable<List<Photo.Size>> {
+        return flickrApi.getSizes(
                             method = AppConstants.FLICKR_GET_SIZES_METHOD,
                             api_key = AppConstants.FLICKR_API_KEY,
-                            photo_id = it.id,
+                            photo_id = id,
                             format = AppConstants.FLICKR_RESPONSE_FORMAT,
                             nojsoncallback = 1
-                    ).flatMapIterable { it.sizes.size }
-                            .map { photoDataMapper.map(it) }
-                }
-//                .toList()
-//                .toObservable()
+        )
+                .flatMapIterable { it.sizes.size }
+                .map { photoDataMapper.map(it) }
+                .toList()
+                .toObservable()
     }
 }

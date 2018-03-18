@@ -10,5 +10,6 @@ interface DataRepository {
     fun getPosts() : Observable<List<Post>>
     fun getPics() : Observable<List<Picture>>
     fun getPhotos(): Observable<List<Photo>>
+    fun getSizes(id: String): Observable<List<Photo.Size>>
 
 }

@@ -26,8 +26,8 @@ class MainPresenter : MvpPresenter<MainView>() {
                 .doOnSubscribe { viewState.progressBarVisibility(true) }
                 .doOnTerminate { viewState.progressBarVisibility(false) }
                 .subscribe(
-                        {
-                            it -> viewState.addTextData(it)
+                        { it ->
+                            viewState.addTextData(it)
                             viewState.updateView()
                         },
                         { error -> Timber.e(error.message) }
@@ -41,8 +41,8 @@ class MainPresenter : MvpPresenter<MainView>() {
                 .doOnSubscribe { viewState.progressBarVisibility(true) }
                 .doOnTerminate { viewState.progressBarVisibility(false) }
                 .subscribe(
-                        {
-                            it -> viewState.addImagesData(it)
+                        { it ->
+                            viewState.addImagesData(it)
                             viewState.updateView()
                         },
                         { error -> Timber.e(error.message) }
@@ -53,8 +53,20 @@ class MainPresenter : MvpPresenter<MainView>() {
         dataRepository.getPhotos()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { viewState.progressBarVisibility(true) }
+                .doOnTerminate { viewState.progressBarVisibility(false) }
                 .subscribe(
-                        { it -> viewState.addPhotoData(it) }
+                        {
+                            for (photo in it) {
+                                dataRepository.getSizes(photo.id)
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(
+                                                { photo.sizes = it }
+                                        )
+                            }
+                            viewState.addPhotoData(it)
+                        },
+                        { error -> Timber.e(error.message) }
                 )
     }
 
