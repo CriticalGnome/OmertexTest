@@ -49,4 +49,13 @@ class MainPresenter : MvpPresenter<MainView>() {
                 )
     }
 
+    fun onPhotosRequested() {
+        dataRepository.getPhotos()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { it -> viewState.addPhotoData(it) }
+                )
+    }
+
 }

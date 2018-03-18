@@ -15,6 +15,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.arellomobile.mvp.presenter.ProvidePresenterTag
 import com.omertex.omertextest.R
 import com.omertex.omertextest.data.model.entity.MainItemVO
+import com.omertex.omertextest.data.model.entity.Photo
 import com.omertex.omertextest.data.model.entity.Picture
 import com.omertex.omertextest.data.model.entity.Post
 import com.omertex.omertextest.util.AppConstants
@@ -29,6 +30,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     private var textData: List<Post> = ArrayList()
     private var imagesData: List<Picture> = ArrayList()
+    private var photoData: List<Photo> = ArrayList()
     private var items: MutableList<MainItemVO> = ArrayList()
 
     private var adapter: MainAdapter = MainAdapter(items, object : MainAdapter.Callback {
@@ -50,6 +52,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
         presenter.onTextRequested()
         presenter.onPicturesRequested()
+        presenter.onPhotosRequested()
 
         recycler.adapter = adapter
         adapter.items = ArrayList()
@@ -61,6 +64,10 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     override fun addImagesData(imagesData: List<Picture>) {
         this.imagesData = imagesData
+    }
+
+    override fun addPhotoData(photoData: List<Photo>) {
+        this.photoData = photoData
     }
 
     override fun updateView() {
