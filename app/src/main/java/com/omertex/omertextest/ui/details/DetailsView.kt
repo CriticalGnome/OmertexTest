@@ -7,4 +7,6 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface DetailsView : MvpView {
 
+    fun progressBarVisibility(isVisible: Boolean)
+
 }
