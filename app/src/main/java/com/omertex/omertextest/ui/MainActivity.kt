@@ -1,6 +1,7 @@
 package com.omertex.omertextest.ui
 
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ProgressBar
@@ -21,6 +22,7 @@ import com.omertex.omertextest.util.AppConstants
 class MainActivity : MvpAppCompatActivity(), MainView {
 
     @BindView(R.id.progressBar)     lateinit var progressBar: ProgressBar
+    @BindView(R.id.refresh)         lateinit var refresh: SwipeRefreshLayout
     @BindView(R.id.mainRecycler)    lateinit var recycler: RecyclerView
 
     @InjectPresenter(type = PresenterType.GLOBAL)
@@ -47,11 +49,16 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         setContentView(R.layout.activity_main)
         ButterKnife.bind(this)
 
-        presenter.onTextRequested()
-        presenter.onPhotosRequested()
+        refresh.setOnRefreshListener { requestData() }
+        requestData()
 
         recycler.adapter = adapter
         adapter.items = ArrayList()
+    }
+
+    private fun requestData() {
+        presenter.onTextRequested()
+        presenter.onPhotosRequested()
     }
 
     override fun addTextData(textData: List<Post>) {
@@ -84,5 +91,9 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     override fun progressBarVisibility(isVisible: Boolean) {
         progressBar.visibility = if (isVisible) View.VISIBLE else View.GONE
+    }
+
+    override fun refreshProgressVisibility(isVisible: Boolean) {
+        refresh.isRefreshing = isVisible
     }
 }

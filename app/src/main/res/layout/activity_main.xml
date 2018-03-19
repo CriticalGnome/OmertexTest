@@ -17,16 +17,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/mainRecycler"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="LinearLayoutManager"
-        tools:listitem="@layout/main_item"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        >
+
+        <android.support.v7.widget.RecyclerView
+        android:id="@+id/mainRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager"
+            tools:listitem="@layout/main_item"
+            />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </android.support.constraint.ConstraintLayout>

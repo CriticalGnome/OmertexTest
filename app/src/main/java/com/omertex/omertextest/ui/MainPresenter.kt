@@ -25,7 +25,10 @@ class MainPresenter : MvpPresenter<MainView>() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { viewState.progressBarVisibility(true) }
-                .doOnTerminate { viewState.progressBarVisibility(false) }
+                .doOnTerminate {
+                    viewState.progressBarVisibility(false)
+                    viewState.refreshProgressVisibility(false)
+                }
                 .subscribe(
                         { it ->
                             viewState.addTextData(it)
@@ -40,9 +43,12 @@ class MainPresenter : MvpPresenter<MainView>() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { viewState.progressBarVisibility(true) }
-                .doOnTerminate { viewState.progressBarVisibility(false) }
+                .doOnTerminate {
+                    viewState.progressBarVisibility(false)
+                    viewState.refreshProgressVisibility(false)
+                }
                 .subscribe(
-                        {
+                        { it ->
                             viewState.addPhotoData(it)
                             viewState.createItemsList()
                         },
@@ -55,7 +61,7 @@ class MainPresenter : MvpPresenter<MainView>() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        {
+                        { it ->
                             photo.sizes = it
                             viewState.addSizesData(photo)
                             viewState.updateList()

@@ -15,5 +15,6 @@ interface MainView : MvpView {
     fun createItemsList()
     fun updateList()
     fun progressBarVisibility(isVisible: Boolean)
+    fun refreshProgressVisibility(isVisible: Boolean)
 
 }
