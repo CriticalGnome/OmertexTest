@@ -1,4 +1,4 @@
-package com.omertex.omertextest.ui
+package com.omertex.omertextest.ui.main
 
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy

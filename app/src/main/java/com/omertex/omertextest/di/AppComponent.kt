@@ -1,6 +1,6 @@
 package com.omertex.omertextest.di
 
-import com.omertex.omertextest.ui.MainPresenter
+import com.omertex.omertextest.ui.main.MainPresenter
 import dagger.Component
 import javax.inject.Singleton
 

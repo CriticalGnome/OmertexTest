@@ -1,4 +1,4 @@
-package com.omertex.omertextest.ui
+package com.omertex.omertextest.ui.main
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

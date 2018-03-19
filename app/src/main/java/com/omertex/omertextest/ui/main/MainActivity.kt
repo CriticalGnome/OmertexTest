@@ -1,4 +1,4 @@
-package com.omertex.omertextest.ui
+package com.omertex.omertextest.ui.main
 
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
