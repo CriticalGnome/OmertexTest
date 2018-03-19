@@ -1,7 +1,6 @@
 package com.omertex.omertextest.ui
 
 import android.os.Bundle
-import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ProgressBar
@@ -16,7 +15,6 @@ import com.arellomobile.mvp.presenter.ProvidePresenterTag
 import com.omertex.omertextest.R
 import com.omertex.omertextest.data.model.entity.MainItemVO
 import com.omertex.omertextest.data.model.entity.Photo
-import com.omertex.omertextest.data.model.entity.Picture
 import com.omertex.omertextest.data.model.entity.Post
 import com.omertex.omertextest.util.AppConstants
 
@@ -29,13 +27,12 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     lateinit var presenter: MainPresenter
 
     private var textData: List<Post> = ArrayList()
-    private var imagesData: List<Picture> = ArrayList()
     private var photoData: List<Photo> = ArrayList()
     private var items: MutableList<MainItemVO> = ArrayList()
 
     private var adapter: MainAdapter = MainAdapter(items, object : MainAdapter.Callback {
         override fun onItemClicked(item: MainItemVO) {
-            Toast.makeText(this@MainActivity, "Clicked item #" + item.id, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@MainActivity, "Clicked item #" + item.textData.id, Toast.LENGTH_SHORT).show()
         }
     })
 
@@ -51,7 +48,6 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         ButterKnife.bind(this)
 
         presenter.onTextRequested()
-        presenter.onPicturesRequested()
         presenter.onPhotosRequested()
 
         recycler.adapter = adapter
@@ -62,22 +58,28 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         this.textData = textData
     }
 
-    override fun addImagesData(imagesData: List<Picture>) {
-        this.imagesData = imagesData
+    override fun addSizesData(photo: Photo) {
+        photoData.forEach {
+            if (it.id == photo.id) it.sizes = photo.sizes
+        }
     }
 
     override fun addPhotoData(photoData: List<Photo>) {
         this.photoData = photoData
+        this.photoData.forEach { presenter.onSizesRequested(it) }
     }
 
-    override fun updateView() {
-        if (textData.isEmpty() || imagesData.isEmpty()) return
+    override fun createItemsList() {
+        if (textData.isEmpty() || photoData.isEmpty()) return
         for (i: Int in 0 until AppConstants.ITEMS_COUNT.toInt()) {
-            items.add(MainItemVO(textData[i], imagesData[i]))
+            items.add(MainItemVO(textData[i], photoData[i]))
         }
-        val diffResult = DiffUtil.calculateDiff(MainItemDiffUtilCallback(adapter.items, items), true)
+        updateList()
+    }
+
+    override fun updateList() {
         adapter.items = items
-        diffResult.dispatchUpdatesTo(adapter)
+        adapter.notifyDataSetChanged()
     }
 
     override fun progressBarVisibility(isVisible: Boolean) {

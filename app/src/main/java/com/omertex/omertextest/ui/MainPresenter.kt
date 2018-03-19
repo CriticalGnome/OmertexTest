@@ -2,6 +2,7 @@ package com.omertex.omertextest.ui
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import com.omertex.omertextest.data.model.entity.Photo
 import com.omertex.omertextest.data.repository.DataRepository
 import com.omertex.omertextest.di.AppInjector
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -28,22 +29,7 @@ class MainPresenter : MvpPresenter<MainView>() {
                 .subscribe(
                         { it ->
                             viewState.addTextData(it)
-                            viewState.updateView()
-                        },
-                        { error -> Timber.e(error.message) }
-                )
-    }
-
-    fun onPicturesRequested() {
-        dataRepository.getPics()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { viewState.progressBarVisibility(true) }
-                .doOnTerminate { viewState.progressBarVisibility(false) }
-                .subscribe(
-                        { it ->
-                            viewState.addImagesData(it)
-                            viewState.updateView()
+                            viewState.createItemsList()
                         },
                         { error -> Timber.e(error.message) }
                 )
@@ -57,14 +43,22 @@ class MainPresenter : MvpPresenter<MainView>() {
                 .doOnTerminate { viewState.progressBarVisibility(false) }
                 .subscribe(
                         {
-                            for (photo in it) {
-                                dataRepository.getSizes(photo.id)
-                                        .observeOn(AndroidSchedulers.mainThread())
-                                        .subscribe(
-                                                { photo.sizes = it }
-                                        )
-                            }
                             viewState.addPhotoData(it)
+                            viewState.createItemsList()
+                        },
+                        { error -> Timber.e(error.message) }
+                )
+    }
+
+    fun onSizesRequested(photo: Photo) {
+        dataRepository.getSizes(photo.id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {
+                            photo.sizes = it
+                            viewState.addSizesData(photo)
+                            viewState.updateList()
                         },
                         { error -> Timber.e(error.message) }
                 )

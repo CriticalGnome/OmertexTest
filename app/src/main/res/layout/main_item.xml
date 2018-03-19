@@ -39,6 +39,8 @@
         android:layout_height="wrap_content"
         style="@style/mainItemUrl"
         tools:text="url"
+        android:maxLines="1"
+        android:ellipsize="end"
         app:layout_constraintTop_toBottomOf="@id/itemTitle"
         app:layout_constraintStart_toStartOf="@id/itemTitle"
         app:layout_constraintEnd_toEndOf="parent"

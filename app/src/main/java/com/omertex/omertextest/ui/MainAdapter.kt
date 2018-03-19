@@ -31,9 +31,9 @@ class MainAdapter(var items: List<MainItemVO>, var callback: Callback) : Recycle
         }
 
         fun bind(item: MainItemVO) {
-            itemId.text = item.id.toString()
-            itemTitle.text = item.title
-            itemUrl.text = item.url
+            itemId.text = item.textData.id.toString()
+            itemTitle.text = item.textData.title
+            if (item.photoData.sizes.isNotEmpty()) itemUrl.text = item.photoData.sizes.last().source
             itemView.setOnClickListener {
                 if (adapterPosition != RecyclerView.NO_POSITION) {
                     callback.onItemClicked(items[adapterPosition])
