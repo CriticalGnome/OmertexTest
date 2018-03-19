@@ -5,7 +5,6 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ProgressBar
-import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.arellomobile.mvp.MvpAppCompatActivity
@@ -17,6 +16,7 @@ import com.omertex.omertextest.R
 import com.omertex.omertextest.data.model.entity.MainItemVO
 import com.omertex.omertextest.data.model.entity.Photo
 import com.omertex.omertextest.data.model.entity.Post
+import com.omertex.omertextest.ui.details.DetailsActivity
 import com.omertex.omertextest.util.AppConstants
 
 class MainActivity : MvpAppCompatActivity(), MainView {
@@ -34,7 +34,9 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     private var adapter: MainAdapter = MainAdapter(items, object : MainAdapter.Callback {
         override fun onItemClicked(item: MainItemVO) {
-            Toast.makeText(this@MainActivity, "Clicked item #" + item.textData.id, Toast.LENGTH_SHORT).show()
+            val bundle = Bundle()
+            bundle.putSerializable("ITEM", item)
+            startActivity(DetailsActivity.getCallingIntent(this@MainActivity, item))
         }
     })
 
