@@ -27,7 +27,7 @@ import com.omertex.omertextest.util.GlideApp
 class DetailsActivity : MvpAppCompatActivity(), DetailsView {
 
     @InjectPresenter(type = PresenterType.GLOBAL)
-    lateinit var presenter: DetailsPresenter
+    @SuppressWarnings("unused") lateinit var presenter: DetailsPresenter
 
     @BindView(R.id.image)           lateinit var image: ImageView
     @BindView(R.id.textHeader)      lateinit var textHeader: TextView

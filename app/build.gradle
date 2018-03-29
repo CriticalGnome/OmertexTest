@@ -47,21 +47,21 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     // Dagger
-    compile "com.google.dagger:dagger:$DAGGER_VERSION"
+    implementation "com.google.dagger:dagger:$DAGGER_VERSION"
     kapt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
     // Moxy
-    compile "com.arello-mobile:moxy:$MOXY_VERSION"
-    compile "com.arello-mobile:moxy-app-compat:$MOXY_VERSION"
+    implementation "com.arello-mobile:moxy:$MOXY_VERSION"
+    implementation "com.arello-mobile:moxy-app-compat:$MOXY_VERSION"
     kapt "com.arello-mobile:moxy-compiler:$MOXY_VERSION"
     // Retrofit
-    compile "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
-    compile "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
-    compile "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION"
+    implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
+    implementation "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION"
     // RxJava
-    compile "io.reactivex.rxjava2:rxjava:$RX_JAVA_VERSION"
-    compile "io.reactivex.rxjava2:rxandroid:$RX_ANDROID_VERSION"
+    implementation "io.reactivex.rxjava2:rxjava:$RX_JAVA_VERSION"
+    implementation "io.reactivex.rxjava2:rxandroid:$RX_ANDROID_VERSION"
     // ButterKnife
-    compile "com.jakewharton:butterknife:$BUTTER_KNIFE_VERSION"
+    implementation "com.jakewharton:butterknife:$BUTTER_KNIFE_VERSION"
     kapt "com.jakewharton:butterknife-compiler:$BUTTER_KNIFE_VERSION"
     //Glide
     implementation "com.github.bumptech.glide:glide:$GLIDE_VERSION"
