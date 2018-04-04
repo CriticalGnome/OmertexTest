@@ -16,8 +16,10 @@ import com.omertex.omertextest.R
 import com.omertex.omertextest.data.model.entity.MainItemVO
 import com.omertex.omertextest.data.model.entity.Photo
 import com.omertex.omertextest.data.model.entity.Post
+import com.omertex.omertextest.data.repository.DataRepository
 import com.omertex.omertextest.ui.details.DetailsActivity
 import com.omertex.omertextest.util.AppConstants
+import org.koin.android.ext.android.inject
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
@@ -27,6 +29,8 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     @InjectPresenter(type = PresenterType.GLOBAL)
     lateinit var presenter: MainPresenter
+
+    private val dataRepository: DataRepository by inject()
 
     private var textData: List<Post> = ArrayList()
     private var photoData: List<Photo> = ArrayList()
@@ -44,7 +48,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     fun provideDialogPresenterTag(): String = "Main"
 
     @ProvidePresenter(type = PresenterType.GLOBAL)
-    fun provideDialogPresenter() = MainPresenter()
+    fun provideDialogPresenter() = MainPresenter(dataRepository)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

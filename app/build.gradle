@@ -27,7 +27,7 @@ dependencies {
     final RETROFIT_VERSION = '2.3.0'
     final RX_JAVA_VERSION = '2.1.2'
     final RX_ANDROID_VERSION = '2.0.1'
-    final DAGGER_VERSION = '2.14.1'
+    final KOIN_VERSION = '0.9.1'
     final BUTTER_KNIFE_VERSION = '8.8.1'
     final ANDROID_SUPPORT_VERSION = '27.1.0'
     final TIMBER_VERSION = '4.6.1'
@@ -46,9 +46,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-    // Dagger
-    implementation "com.google.dagger:dagger:$DAGGER_VERSION"
-    kapt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+    // Koin
+    implementation "org.koin:koin-android:$KOIN_VERSION"
     // Moxy
     implementation "com.arello-mobile:moxy:$MOXY_VERSION"
     implementation "com.arello-mobile:moxy-app-compat:$MOXY_VERSION"
